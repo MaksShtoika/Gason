@@ -1,0 +1,330 @@
+﻿@{
+    Layout = null;
+}
+@using System.Configuration
+@using System.Globalization
+@model Gason.Landing.Models.IndexViewModel
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GasOn - Головна</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+    <script>
+        function feedbackSubmit() {
+            $("#feedbackForm").submit();
+        }
+    </script>
+</head>
+<body>
+    <nav class="navbar navbar-default navbar-static-top navbar-inverse top-menu" id="navbar">
+        <div class="container">
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Навігація</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="logo" href="@Url.Action("Index", "Home")"><img src="~/img/d-sm.png"></a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li> @Html.ActionLink("Головна", "Index", "Home")</li>
+                    <li> @Html.ActionLink("Про нас", "About", "Home")</li>
+                    <li> @Html.ActionLink("Види ГБО", "Types", "Home")</li>
+                    <li> @Html.ActionLink("Галерея", "Gallery", "Home")</li>
+                    <li> @Html.ActionLink("Контакти", "Contact", "Home")</li>
+                    <li class="phone">
+                        @foreach (var tel in SiteData.PhoneNumbers)
+                        {
+                            <a class="phone-number" href="tel:@tel">@tel</a>
+                        }
+
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+    </nav>
+
+    <header>
+
+        <div class="container">
+
+            <div class="header-text jumbotron">
+                <h1>ВСТАНОВЛЕННЯ ГБО У ЛЬВОВІ</h1>
+                <p>
+                    У нас доступна ціна на встановлення ГБО 2-го покоління (від 150€) <br>та 4-го покоління (від 250€) на Ваше авто.
+                </p>
+            </div>
+        </div>
+    </header>
+    <div class="main">
+        <div class="slogo">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-5 col-sm-5 slogo-calc">
+                        <h2 id="slogo-title">Економія при встановленні ГБО 2-го покоління </h2>
+                        <div class="calc-show-b" style="display: block;">
+                            <button class="btn-calc" id="calc-show">Порахуємо окупність</button>
+                            <button class="btn-exit hidden" id="calc-exit">Х</button>
+                        </div>
+                        <div class="calcul hidden" id="calculate">
+                            <div class="calculator">
+                                <div class="title-calc">
+                                    <p>Калькулятор окупності ГБО</p>
+                                </div>
+                                <div class="calc-form main-calc">
+                                    <div class="in_main_calc">
+                                        <form id="calc" name="calc" target="_blank">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="stoimost form-group">
+                                                        <label for="price_gbo">Вартість ГБО:</label>
+                                                        <div class="stoimost-wrap">
+                                                            <input id="price_gbo" class="pole form-control" name="price_gbo" step="500" type="number" value="7000" required="" onclick="ga('send', 'pageview', '/pole/ustanovkagbo');">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="toplivo">
+                                                            Паливо:
+                                                        </label>
+                                                        <select id="toplivo" required="" class="form-control">
+                                                            <option value="0">Виберіть паливо...</option>
+                                                            <option value="23.41">Бензин А 95 преміум</option>
+                                                            <option value="22.37">Бензин А 95</option>
+                                                            <option value="21.70">Бензин А 92</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="price-in-wrap form-group">
+                                                        <label for=" t_price">
+                                                            Ціна палива:
+                                                        </label>
+                                                        <input type="text" readonly="" id="t_price" value="0.00" class="price-in  form-control">
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="gas">LPG:</label>
+                                                        <select id="gas" class="form-control" disabled="">
+                                                            <option value="12.75">Пропан-бутан</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-sm-6">
+                                                    <div class="form-group">
+                                                        <label for="g_price">Ціна LPG:</label>
+                                                        <div class="price-in-wrap">
+                                                            <input type="text" readonly="" id="g_price" value="12.75" class="price-in form-control">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="probeg form-group">
+                                                        <label for="probeg">Пробіг автомобіля за місяць</label>
+                                                        <div class="probeg-wrap">
+                                                            <input id="probeg" class="pole form-control" name="probeg" type="number" step="100" value="800" required="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="rashod form-group">
+                                                        <label>Розхід бензину на 100 км:</label>
+                                                        <div class="rashod-wrap">
+                                                            <input id="rashod" class="pole form-control" name="rashod" type="number" step="0.5" value="9" required="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="dop-rashod form-group">
+                                                        <label for="dop">Вартість встановлення:</label>
+                                                        <div class="dop-rashod-wrap">
+                                                            <input class="form-control" id="dop" name="dop" type="number" step="100" value="1400" required="">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="raschet">
+                                                        <button class="btn btn-danger btn-block" id="submit-ras" name="submit" value="Расчет">
+                                                            Розрахунок
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div id="message">
+                                    <p>Взято середнє значення по Україні:</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-7 col-sm-7 slogo-detail">
+                        <h3>Переваги ГБО</h3>
+                        <p>Встановлення газового обладнання це не тільки економія ваших коштів, але й піклування про ваш автомобіль. Газ не містить сірки і свинцю, які руйнують деталі камери згоряння і каталізатор. При його згорянні не утворюється нагару на поршнях, клапанах і свічках запалювання. Зріджений газ випаровується краще бензину, менше забруднює масло і не розріджує його. </p>
+                        <p>Водіїв завжди хвилювало питання якості палива. Бензин, як відомо, можна розбавити, і цим часто користуються. В той час, коли газ розбавити не можна і ви завжди будете впевнені в його якості.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="question">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h2>Питання про газобалонне обладнання автомобіля</h2>
+                        <hr>
+                    </div>
+                </div>
+
+                <div class="row index-gbo">
+
+                    <div class="col-md-4">
+                        <span class="gbo-number">01</span>
+                        <h3>ГБО небезпечне на автомобілі?</h3>
+                        <p>Сучасні газові балони, які встановлюються на автомобілі, не можуть вибухати. Навіть якщо їх «підсмажувати» на відкритому вогні!</p>
+                    </div>
+                    <div class="col-md-4">
+                        <span class="gbo-number">02</span>
+                        <h3>Чи шкідлива установка ГБО?</h3>
+                        <p>Ні, швидкість горіння газово-повітряної суміші в порівнянні з бензиновою, значно нижче, тому ударні навантаження на колінвал, поршні, шатуни і т.д. відповідно менше, а це сприяє збільшенню загального ресурсу двигуна в 1,5 рази.</p>
+                    </div>
+                    <div class="col-md-4">
+                        <span class="gbo-number">03</span>
+                        <h3>Скільки часу потрібно для встановлення ГБО?</h3>
+                        <p>Зазвичай ми виконуємо установку газового обладнання на авто протягом 6-х годин, робота з рідкісною іномаркою може затягнутися до 12 годин. При необхідності, ми виконуємо монтаж навіть в нічний час доби.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="work">
+            <h2>Наші роботи</h2>
+            <div class="container">
+                <div class="row">
+                    @for (int i = 0; i < Math.Min(Model.Images.Count, 3); i++)
+            {
+                        <div class="col-md-3 work-container">
+                            <div class="work-img">
+                                <img src="@Url.Content(@Model.Images[i].ThumbPath)" />
+                                <div class="open-gallery">
+                                    <a href="@Url.Action("Gallery")"><span>Галерея</span></a>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    <div class="prefooter">
+        <div class="container">
+            <div class="row prefooter-phone">
+                <div class="col-md-6">
+                    <span>
+                            Адреса и контакти:
+                        </span>
+                    <p>
+                        @SiteData.Address
+                    </p>
+                    @foreach (var tel in SiteData.PhoneNumbers)
+                    {
+                        <p>
+                            <a href="tel:@tel">@tel</a><br>
+                        </p>
+                    }
+                    <p>
+                        <a href="mailto:@SiteData.ContactEmail">@SiteData.ContactEmail</a>
+                    </p>
+                </div>
+                <div class="col-md-6">
+                    <span>
+                            Графік роботи:
+                        </span>
+                    <p>
+                        ПН - ЧТ 9:00 - 19:00 ПТ - 9:00 - 18:00
+                    </p>
+                    <p>
+                        СБ - за домовленістю.
+                    </p>
+                    <p>
+                        НД - вихідний
+                    </p>
+                </div>
+            </div>
+            <form action="@Url.Action("Feedback", "Contact")" method="POST" class="validate_form Form2 feedbackForm" id="feedbackForm">
+                <div class="row">
+                    <div class="form_column col-md-6">
+                        <input name="name" placeholder="Ім'я" type="text">
+                        <input name="phone" placeholder="Телефон" type="text">
+                        <input name="email" placeholder="E-mail" type="email">
+                    </div>
+                    <div class="form-text col-md-6">
+                        <textarea name="message" placeholder="Мене цікавить ..."></textarea>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        @Html.AntiForgeryToken()
+                        <button class="blue_btn g-recaptcha" data-sitekey="@ViewBag.RecaptchaSiteKey" data-callback="feedbackSubmit">Відправити запитання</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+        <div class="map">
+            <div class="maps" id="map" style="height: 400px;">
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="container">
+            <div class="row footer-wrap">
+                <div class="col-lg-2 col-sm-2 logo">
+                    <img src="~/img/d-sm.png">
+                </div>
+
+                <div class="col-lg-offset-5 col-sm-offset-5 col-lg-3 col-sm-3">
+                    <div class="phone">
+                        <p class="phone-icon">
+                            <span>
+                                @foreach (var tel in SiteData.PhoneNumbers)
+                                {
+                                    <span class="fa fa-phone-square"></span><a href="tel:@tel">@tel</a><br>
+                                }
+                            </span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-lg-2 col-sm-2 soc">
+                    <ul class="list-inline">
+                        <li>
+                            <a href="@SiteData.VkLink" target="_blank" class="item">
+                                <span class="fa fa-vk fa-2x"></span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="@SiteData.FbLink" class="item" target="_blank">
+                                <span class="fa fa-facebook fa-2x"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script>
+        var lat = @Model.MapLat.ToString(CultureInfo.InvariantCulture);
+        var long = @Model.MapLong.ToString(CultureInfo.InvariantCulture);
+    </script>
+
+    @Scripts.Render("~/bundles/gason")
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAyJ4D-QBBou2tLhrZUQ0Dw_yEcFlhwEa8&callback=initMap"
+            async defer></script>
+</body>
+</html>

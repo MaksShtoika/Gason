@@ -1,0 +1,76 @@
+﻿@using System.Globalization
+@model Gason.Landing.Models.FeedbackViewModel
+@{
+    ViewBag.Title = "Контакти";
+}
+<div class="main">
+    <div class="prefooter-contacts">
+        <div class="container">
+            <div class="prefooter-phone contacts">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row" style="margin-top: 25px;">
+                            <div class="col-md-6">
+                                <span>
+                                    Адреса и контакти:
+                                </span>
+                                <p>
+                                    @SiteData.Address
+                                </p>
+                                @foreach (var tel in SiteData.PhoneNumbers)
+                                {
+                                    <p>
+                                        <a href="tel:@tel">@tel</a><br>
+                                    </p>
+                                }
+                                <p>
+                                    <a href="mailto:@SiteData.ContactEmail">@SiteData.ContactEmail</a>
+                                </p>
+                            </div>
+                            <div class="col-md-6">
+                                <span>
+                                    Графік роботи:
+                                </span>
+                                <p>
+                                    ПН - ЧТ 9:00 - 19:00 ПТ - 9:00 - 18:00
+                                </p>
+                                <p>
+                                    СБ - за домовленістю.
+                                </p>
+                                <p>
+                                    НД - вихідний
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <form action="@Url.Action("Feedback", "Contact")" method="POST" class="validate_form Form2 feedbackForm">
+                            <div class="form_column">
+                                <input name="name" placeholder="Ім'я" type="text">
+                                <input name="phone" placeholder="Телефон" type="text">
+                                <input name="email" placeholder="E-mail" type="email">
+                            </div>
+                            <div class="form-text">
+                                <textarea name="message" placeholder="Мене цікавить ..."></textarea>
+                            </div>
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="blue_btn">Відправити запитання</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="maps" id="map"></div>
+    </div>
+</div>
+
+@section scripts{
+<script>
+    var lat = @ViewBag.MapLat.ToString(CultureInfo.InvariantCulture);
+    var long = @ViewBag.MapLong.ToString(CultureInfo.InvariantCulture);
+</script>
+
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAyJ4D-QBBou2tLhrZUQ0Dw_yEcFlhwEa8&callback=initMap"
+        async defer></script>
+}

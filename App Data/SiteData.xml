@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<site>
+  <phoneNumbers>
+    <phoneNumber>+380979348094</phoneNumber>
+    <phoneNumber></phoneNumber>
+  </phoneNumbers>
+  <contactEmail>gasongbo@gmail.com</contactEmail>
+  <address>м. Львів, вул. Народна,20 (бічна вул. Городоцької, 207)</address>
+  <vkLink>http://vk.com/gbolviv_ua</vkLink>
+  <fbLink>https://www.facebook.com/profile.php?id=100007412924849</fbLink>
+  <mapCoords lat="49.83171810134721" long="23.9847931265831"></mapCoords>
+  <galleryImages>
+    <image name="First" path="path/to/image"></image>
+    <image name="Second" path="path/to/image"></image>
+  </galleryImages>
+</site>

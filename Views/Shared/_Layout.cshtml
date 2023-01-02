@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>GasOn - @ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @RenderSection("styles", required: false)
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <nav class="navbar navbar-default navbar-static-top navbar-inverse top-menu" id="navbar">
+        <div class="container">
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Навігація</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="logo" href="@Url.Action("Index", "Home")"><img src="~/img/d-sm.png"></a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li> @Html.ActionLink("Головна", "Index", "Home")</li>
+                    <li> @Html.ActionLink("Про нас", "About", "Home")</li>
+                    <li> @Html.ActionLink("Види ГБО", "Types", "Home")</li>
+                    <li> @Html.ActionLink("Галерея", "Gallery", "Home")</li>
+                    <li> @Html.ActionLink("Контакти", "Contact", "Home")</li>
+                    <li class="phone">
+                        @foreach (var tel in SiteData.PhoneNumbers)
+                        {
+                            <a class="phone-number" href="tel:@tel">@tel</a>
+                        }
+
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+    </nav>
+    @RenderBody()
+    <footer>
+        <div class="container">
+            <div class="row footer-wrap">
+                <div class="col-lg-2 col-sm-2 logo">
+                    <img src="~/img/d-sm.png">
+                </div>
+
+                <div class="col-lg-offset-5 col-sm-offset-5 col-lg-3 col-sm-3">
+                    <div class="phone">
+                        <p class="phone-icon">
+                            <span>
+                                @foreach (var tel in SiteData.PhoneNumbers)
+                                {
+                                    <span class="fa fa-phone-square"></span><a href="tel:@tel">@tel</a><br>
+                                }
+                            </span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-lg-2 col-sm-2 soc">
+                    <ul class="list-inline">
+                        <li>
+                            <a href="@SiteData.VkLink" target="_blank" class="item">
+                                <span class="fa fa-vk fa-2x"></span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="@SiteData.FbLink" class="item" target="_blank">
+                                <span class="fa fa-facebook fa-2x"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    @Scripts.Render("~/bundles/gason")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

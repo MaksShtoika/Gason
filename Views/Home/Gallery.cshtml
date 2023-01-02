@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "Галерея";
+}
+@model ICollection<Gason.Landing.Models.ImageModel>
+
+@section styles{
+    @Styles.Render("~/Content/featherlightcss")
+}
+
+<section class="main gallery">
+    <div class="container">
+        <div class="row" style="margin-bottom: 30px;">
+            <div class="col-sm-12">
+                <h2>Наші роботи</h2>
+            </div>
+        </div>
+        <div data-featherlight-gallery data-featherlight-filter="a">
+
+            <div class="gallery-container">
+                @foreach (var image in Model)
+                {
+                    <div class="item col-sm-4 col-md-3">
+                        <a class="thumbnail gallery" href="@Url.Content(image.ImgPath)"><img src="@Url.Content(image.ThumbPath)"></a>
+                    </div>
+                }
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/featherlightjs")
+    <script>
+        $(document).ready(function () {
+            $('.gallery').featherlightGallery();
+        });
+    </script>
+}
